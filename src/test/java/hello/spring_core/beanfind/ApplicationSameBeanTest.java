@@ -23,6 +23,7 @@ public class ApplicationSameBeanTest {
     @Test
     @DisplayName("같은 타입이 둘 이상 있으면 중복 오류 발생")
     void findBeanDuplicate(){
+        //코드 수정
         assertThrows(NoUniqueBeanDefinitionException.class,
                 () -> ac.getBean(MemberRepository.class));
     }
