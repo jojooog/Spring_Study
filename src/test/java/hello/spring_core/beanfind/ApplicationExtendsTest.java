@@ -53,8 +53,6 @@ public class ApplicationExtendsTest {
     @Test
     @DisplayName("부모타입으로 조회할 때 자식이 둘 이상 있으면 중복오류 발생")
     void findByDuplicatedBean(){
-        DiscountPolicy discountPolicy = ac.getBean(DiscountPolicy.class);
-        //부모타입으로 빈 조회
         assertThrows(NoUniqueBeanDefinitionException.class,
                 () -> ac.getBean(DiscountPolicy.class));
     }
