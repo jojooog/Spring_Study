@@ -21,7 +21,7 @@ public class BeanLifeCycleTest {
     @Configuration  //설정정보 등록
     static class LifeCycleConfig{
 
-        @Bean
+        @Bean(initMethod = "init", destroyMethod = "close")
         public NetworkClient networkClient(){
             NetworkClient networkClient = new NetworkClient();
             //객체 생성 당시에는 url이 없는 상태
