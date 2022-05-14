@@ -2,9 +2,9 @@ package hello.spring_core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
@@ -27,6 +27,43 @@ public class SingletonWithPrototypeTest {
 
 
     }
+
+    @Test
+    void singletonWithPrototypeTest(){
+        AnnotationConfigApplicationContext ac =
+                new AnnotationConfigApplicationContext(Singleton.class, Prototype.class);
+        Singleton singleton1 = ac.getBean(Singleton.class);
+        Singleton singleton2 = ac.getBean(Singleton.class);
+
+        int count1 = singleton1.logic();
+        Assertions.assertThat(count1).isEqualTo(1);
+
+        int count2 = singleton2.logic();
+        Assertions.assertThat(count2).isEqualTo(2);
+    }
+
+
+    //생성 시점에 주입된 프로토타입빈을 쓴다
+    @Scope("singleton")
+    static class Singleton{
+
+        private final Prototype prototype;
+
+        @Autowired
+        public Singleton(Prototype prototype){
+            this.prototype = prototype;
+        }
+
+        public int logic(){
+            prototype.addCount();
+            int count = prototype.getCount();
+            return count;
+        }
+
+    }
+
+
+
 
     @Scope("prototype")
     static class Prototype {
