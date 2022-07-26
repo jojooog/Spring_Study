@@ -17,7 +17,8 @@ public class AllBeanTest {
 
     @Test
     void findAllBean(){
-        ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class, DiscountService.class);
+
+     ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class, DiscountService.class);
 
         DiscountService discountService = ac.getBean(DiscountService.class);
         Member member = new Member(1L,"userA", Grade.VIP);
@@ -43,12 +44,10 @@ public class AllBeanTest {
 
        }
 
-       public int discount(Member member, int price, String discountCode){
-           DiscountPolicy discountPolicy = map.get(discountCode);
-           return discountPolicy.discount(member, price);
 
-
-
-       }
+        public int discount(Member member, int price, String discountCode) {
+         DiscountPolicy discountPolicy = map.get(discountCode);
+         return discountPolicy.discount(member, price);
+        }
     }
 }
